@@ -1,0 +1,11 @@
+{
+  "name": "Slack History Maintainer",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+    "request": "^2.81.0",
+    "ws": "^3.0.0"
+  },
+  "author": "Ashish Bansal",
+  "license": "GPLv3"
+}
