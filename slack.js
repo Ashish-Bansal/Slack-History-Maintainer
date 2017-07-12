@@ -67,12 +67,12 @@ slackApiCall('rtm.connect', { token: OAUTH_TOKEN}, (response) => {
       return;
     }
 
-
     const userId = parsedMessage.user;
     const channelId = parsedMessage.channel;
 
     const user = getUserById(userId);
     const channel = getChannelById(channelId);
+
     if (!user || !parsedMessage.text || !channel) {
       fs.appendFile('error_log', user);
       fs.appendFile('error_log', channel);
@@ -80,9 +80,9 @@ slackApiCall('rtm.connect', { token: OAUTH_TOKEN}, (response) => {
       console.log(user);
       console.log(channel);
       console.log(parsedMessage.text);
+      console.log(channelId);
       return;
     }
-
     let filename;
     if (channel.is_channel || channel.is_group) {
       filename = channel.name_normalized;
@@ -98,17 +98,18 @@ slackApiCall('rtm.connect', { token: OAUTH_TOKEN}, (response) => {
   });
 });
 
+
 slackApiCall('users.list', { token: OAUTH_TOKEN}, (response) => {
   Array.prototype.push.apply(userList, response.members);
 });
 
 slackApiCall('channels.list', { token: OAUTH_TOKEN}, (response) => {
-  Array.prototype.push.apply(publicChannelList, response.members);
+  Array.prototype.push.apply(publicChannelList, response.channels);
   console.log(response);
 });
 
 slackApiCall('groups.list', { token: OAUTH_TOKEN}, (response) => {
-  Array.prototype.push.apply(groupList, response.members);
+  Array.prototype.push.apply(groupList, response.groups); // needs verification [paid feature]
   console.log(response);
 });
 
