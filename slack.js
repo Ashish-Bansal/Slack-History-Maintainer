@@ -94,7 +94,7 @@ slackApiCall('rtm.connect', { token: OAUTH_TOKEN}, (response) => {
       filename = 'unknown_channel';
     }
 
-    fs.appendFile(`${CHATS_DIRECTORY_PATH}/${filename}`, `${user.name} \: ${parsedMessage.text}\n`);
+    fs.appendFile(`${CHATS_DIRECTORY_PATH}/${filename}`, `${user.name} : ${parsedMessage.text}\n`);
   });
 });
 
@@ -105,7 +105,7 @@ slackApiCall('users.list', { token: OAUTH_TOKEN}, (response) => {
 
 slackApiCall('channels.list', { token: OAUTH_TOKEN}, (response) => {
   Array.prototype.push.apply(publicChannelList, response.channels);
-  // console.log(response);
+  console.log(response);
 });
 
 slackApiCall('groups.list', { token: OAUTH_TOKEN}, (response) => {
